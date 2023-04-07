@@ -6,10 +6,11 @@ CFLAGS = -W -O -g -Wall -Werror -Wextra -Wpedantic -Wconversion -Wcast-align -Wu
 LDLIBS = -lm
 
 all: gisolate
-gisolate: gisolate.o
-	$(CC) $(LDFLAGS) -o gisolate gisolate.o $(LDLIBS)
-gisolate.o: gisolate.c 
+gisolate: gisolate.o set.o
+	$(CC) $(LDFLAGS) -o gisolate gisolate.o set.o $(LDLIBS)
+gisolate.o: gisolate.c gisolate.h set.h
 	$(CC) -c $(CFLAGS) gisolate.c
+set.o: set.c set.h
+	$(CC) -c $(CFLAGS) set.c
 clean:
-	rm -f gisolate gisolate.o
-	sudo rm -rf ./build
+	rm -f gisolate gisolate.o set.o
